@@ -861,10 +861,8 @@ function App() {
             transition: 'all 0.3s ease-out'
           }}
         ></div>
-        <>
         <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl animate-bounce"></div>
         <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-2xl animate-pulse"></div>
-        </>
       </div>
 
       {/* Header */}
