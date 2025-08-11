@@ -218,7 +218,7 @@ function App() {
     hy: [
       ['ՍՏԵՂԾՈՒՄ ԵՆՔ', 'ԱՊԱԳԱՅԻ', 'ՏԱՐԱԾՔՆԵՐ'],
       ['REFORM', 'ՃԱՐՏԱՐԱՊԵՏՈՒԹՅՈՒՆ', '& ԴԻԶԱՅՆ'],
-      ['ՆՈՐԱՐԱՐԱԿԱՆ', 'ԼՈՒԾՈՒՄՆԵՐ', 'ՁԵԶՆԻՑ ՀԱՄԱՐ'],
+      ['ՆՈՐԱՐԱՐԱԿԱՆ', 'ԼՈՒԾՈՒՄՆԵՐ', 'ՁԵԶ ՀԱՄԱՐ'],
       ['ՊՐԵՄԻՈՒՄ', 'ՈՐԱԿ', 'ԲԱՐՁՐ ՄԱԿԱՐԴԱԿ'],
       ['ՍՏԵՂԾԱԳՈՐԾԱԿԱՆ', 'ՄՈՏԵՑՈՒՄ', 'ՅՈՒՐԱՔԱՆՉՅՈՒՐ ՆԱԽԱԳԾԻ']
     ],
@@ -284,7 +284,7 @@ function App() {
       </div>
 
       {/* Header */}
-      <header className={`fixed w-full z-50 transition-all duration-500 ${
+      <header role="banner" className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled ? 'bg-white/95 backdrop-blur-lg shadow-2xl py-2' : 'bg-white/90 backdrop-blur-lg py-4'
       }`}>
         <div className="container mx-auto px-4 flex items-center justify-between relative z-10">
@@ -293,7 +293,7 @@ function App() {
               <a href="#home" className="group cursor-pointer">
                 <img 
                   src="/reformLogo.png" 
-                  alt="REFORM Logo" 
+                  alt="REFORM - Ճարտարապետություն & Դիզայն | Architecture & Design Logo" 
                   className="w-20 h-auto transition-all duration-300 group-hover:scale-110"
                   style={{ objectFit: 'contain' }}
                 />
@@ -305,7 +305,7 @@ function App() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center space-x-8">
             {[
               { key: 'home', href: '#home' },
               { key: 'services', href: '#services' },
@@ -366,7 +366,7 @@ function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200">
-            <nav className="container mx-auto px-4 py-6 space-y-4">
+            <nav role="navigation" aria-label="Mobile navigation" className="container mx-auto px-4 py-6 space-y-4">
               {[
                 { key: 'home', href: '#home' },
                 { key: 'services', href: '#services' },
@@ -410,10 +410,10 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+      <section id="home" role="banner" aria-label="Hero section" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
         <div className="relative z-10 text-center text-gray-800 px-4 max-w-6xl mx-auto">
           <div className="animate-fade-in-up">
-            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black mb-12 leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black mb-12 leading-tight" id="main-heading">
               <span 
                 key={`line1-${currentPhrase}-${currentLang}`}
                 className="typewriter-line block bg-gradient-to-r from-[#EF4822] via-[#706F6F] to-[#161616] bg-clip-text text-transparent"
@@ -468,10 +468,10 @@ function App() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative py-32 bg-white">
+      <section id="services" role="region" aria-labelledby="services-heading" className="relative py-32 bg-white">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+            <h2 id="services-heading" className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
               <span className="bg-gradient-to-r from-[#EF4822] to-[#706F6F] bg-clip-text text-transparent">
                 {t('servicesTitle')}
               </span>
@@ -526,7 +526,7 @@ function App() {
                 image: 'https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               }
             ].map((service, index) => (
-              <div 
+              <article 
                 key={index} 
                 className="group relative bg-white border border-gray-200 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 hover:scale-105"
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -554,7 +554,7 @@ function App() {
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" size={18} />
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
@@ -591,10 +591,10 @@ function App() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="projects" className="relative py-32 bg-gray-50">
+      <section id="projects" role="region" aria-labelledby="projects-heading" className="relative py-32 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+            <h2 id="projects-heading" className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
               <span className="bg-gradient-to-r from-[#EF4822] to-[#706F6F] bg-clip-text text-transparent">
                 {t('portfolioTitle')}
               </span>
@@ -637,7 +637,7 @@ function App() {
                 categoryKey: 'project6Cat'
               }
             ].map((project, index) => (
-              <div 
+              <article 
                 key={index} 
                 className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 bg-white"
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -657,17 +657,17 @@ function App() {
                       {t('viewProject')}
                     </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contacts" className="relative py-32 bg-white">
+      <section id="contacts" role="region" aria-labelledby="contacts-heading" className="relative py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+            <h2 id="contacts-heading" className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
               <span className="text-[#EF4822]">
                 {t('contactTitle')}
               </span>
@@ -704,26 +704,35 @@ function App() {
 
             <div className="bg-gray-50 border border-gray-200 rounded-3xl p-8 shadow-lg">
               <h3 className="text-3xl font-bold text-gray-800 mb-8">{t('writeUs')}</h3>
-              <form className="space-y-6">
+              <form role="form" aria-label="Contact form" className="space-y-6">
                 <div className="group">
+                  <label htmlFor="name" className="sr-only">{t('yourName')}</label>
                   <input
+                    id="name"
                     type="text"
                     placeholder={t('yourName')}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#EF4822] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
+                    aria-label={t('yourName')}
+                    className="w-full px-6 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-[#EF4822] focus:bg-gray-50 transition-all duration-300 text-gray-800 placeholder-gray-500 group-hover:border-gray-300"
                   />
                 </div>
                 <div className="group">
+                  <label htmlFor="email" className="sr-only">{t('yourEmail')}</label>
                   <input
+                    id="email"
                     type="email"
                     placeholder={t('yourEmail')}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#706F6F] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
+                    aria-label={t('yourEmail')}
+                    className="w-full px-6 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-[#706F6F] focus:bg-gray-50 transition-all duration-300 text-gray-800 placeholder-gray-500 group-hover:border-gray-300"
                   />
                 </div>
                 <div className="group">
+                  <label htmlFor="message" className="sr-only">{t('projectDescription')}</label>
                   <textarea
+                    id="message"
                     placeholder={t('projectDescription')}
+                    aria-label={t('projectDescription')}
                     rows={5}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#161616] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 resize-none group-hover:border-gray-500"
+                    className="w-full px-6 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:border-[#161616] focus:bg-gray-50 transition-all duration-300 text-gray-800 placeholder-gray-500 resize-none group-hover:border-gray-300"
                   ></textarea>
                 </div>
                 <button className="w-full bg-gradient-to-r from-[#EF4822] via-[#706F6F] to-[#161616] hover:from-[#d13d1e] hover:via-[#5a5959] hover:to-[#0f0f0f] text-white py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
@@ -736,28 +745,26 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="relative bg-gray-800 text-white py-16 overflow-hidden">
+      <footer role="contentinfo" className="relative bg-gray-800 text-white py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#EF4822]/20 via-[#706F6F]/20 to-[#161616]/20"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-4 mb-8 md:mb-0 group">
-              <div className="flex flex-col items-center">
-                <a href="#home" className="group cursor-pointer">
-                  <img 
-                    src="/reformLogo.png" 
-                    alt="REFORM Logo" 
-                    className="w-20 h-auto transition-all duration-300 group-hover:scale-110"
-                    style={{ objectFit: 'contain' }}
-                  />
-                  <div className="text-gray-200 font-medium mt-2 group-hover:text-[#EF4822] transition-colors duration-300">
-                    {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
-                  </div>
-                </a>
-              </div>
+          <div className="flex flex-col items-center justify-center text-center">
+            <div className="flex flex-col items-center mb-8">
+              <a href="#home" className="group cursor-pointer flex flex-col items-center">
+                <img 
+                  src="/reformLogo.png" 
+                  alt="REFORM - Ճարտարապետություն & Դիզայն | Architecture & Design Logo" 
+                  className="w-20 h-auto transition-all duration-300 group-hover:scale-110"
+                  style={{ objectFit: 'contain' }}
+                />
+                <div className="text-gray-200 font-medium mt-2 group-hover:text-[#EF4822] transition-colors duration-300">
+                  {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
+                </div>
+              </a>
             </div>
-            <div className="text-center md:text-right">
-              <p className="text-gray-400 mb-2">&copy; 2024 REFORM. {t('footerText')}</p>
-              <p className="text-sm text-gray-500">{t('footerSubtext')}</p>
+            <div className="text-center">
+              <p className="text-gray-400 mb-2">&copy; 2025 REFORM. {t('footerText')}</p>
+              {/* <p className="text-sm text-gray-500">{t('footerSubtext')}</p> */}
             </div>
           </div>
         </div>
