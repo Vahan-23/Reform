@@ -1,6 +1,6 @@
 # REFORM - Architecture & Design
 
-![REFORM Logo](public/5233619750318371183.jpg)
+![REFORM Logo](public/reformLogo.png)
 
 Современный веб-сайт архитектурной студии REFORM с потрясающими анимациями и многоязычной поддержкой.
 
@@ -65,7 +65,7 @@ npm run preview
 ```
 reform-website/
 ├── public/
-│   └── 5233619750318371183.jpg    # Логотип REFORM
+│   └── reformLogo.png    # Логотип REFORM
 ├── src/
 │   ├── App.tsx                    # Основной компонент
 │   ├── main.tsx                   # Точка входа

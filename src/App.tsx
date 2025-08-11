@@ -267,43 +267,40 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-gray-100"></div>
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-pink-500/20 to-violet-500/20 rounded-full blur-3xl animate-pulse"
+          className="absolute w-96 h-96 bg-gradient-to-r from-[#EF4822]/20 to-[#706F6F]/20 rounded-full blur-3xl animate-pulse"
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
             transition: 'all 0.3s ease-out'
           }}
         ></div>
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-[#EF4822]/10 to-[#706F6F]/10 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-[#EF4822]/5 to-[#706F6F]/5 rounded-full blur-2xl animate-pulse"></div>
       </div>
 
       {/* Header */}
       <header className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? 'bg-gray-900/95 backdrop-blur-lg shadow-2xl py-2' : 'bg-transparent py-4'
+        scrolled ? 'bg-white/95 backdrop-blur-lg shadow-2xl py-2' : 'bg-white/90 backdrop-blur-lg py-4'
       }`}>
         <div className="container mx-auto px-4 flex items-center justify-between relative z-10">
           <div className="flex items-center space-x-4 group">
-            <div className="relative">
-              <img 
-                src="/public/5233619750318371183.jpg" 
-                alt="REFORM Logo" 
-                className="w-14 h-14 rounded-2xl object-cover shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                REFORM
-              </h1>
-              <p className="text-sm text-gray-300 font-medium">
-                {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
-              </p>
+            <div className="flex flex-col items-center">
+              <a href="#home" className="group cursor-pointer">
+                <img 
+                  src="/reformLogo.png" 
+                  alt="REFORM Logo" 
+                  className="w-20 h-auto transition-all duration-300 group-hover:scale-110"
+                  style={{ objectFit: 'contain' }}
+                />
+                <p className="text-sm text-gray-800 font-medium mt-2 group-hover:text-[#EF4822] transition-colors duration-300">
+                  {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
+                </p>
+              </a>
             </div>
           </div>
 
@@ -319,11 +316,11 @@ function App() {
               <a
                 key={item.key}
                 href={item.href}
-                className="relative text-white font-semibold hover:text-pink-400 transition-all duration-300 group"
+                className="relative text-gray-800 font-semibold hover:text-[#EF4822] transition-all duration-300 group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {t(item.key)}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-violet-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#EF4822] to-[#706F6F] group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
             
@@ -331,7 +328,7 @@ function App() {
             <div className="relative">
               <button
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center space-x-2 text-white font-semibold hover:text-pink-400 transition-all duration-300 bg-gray-800/50 px-4 py-2 rounded-xl backdrop-blur-lg"
+                className="flex items-center space-x-2 text-gray-800 font-semibold hover:text-[#EF4822] transition-all duration-300 bg-gray-100/80 px-4 py-2 rounded-xl backdrop-blur-lg border border-gray-200"
               >
                 <Globe size={18} />
                 <span>{languages.find(lang => lang.code === currentLang)?.flag}</span>
@@ -339,13 +336,13 @@ function App() {
               </button>
               
               {isLangMenuOpen && (
-                <div className="absolute top-full right-0 mt-2 bg-gray-800/95 backdrop-blur-lg rounded-xl shadow-2xl border border-gray-700/50 overflow-hidden">
+                <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl border border-gray-200 overflow-hidden">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => switchLanguage(lang.code)}
                       className={`w-full px-4 py-3 text-left hover:bg-gray-700/50 transition-colors duration-300 flex items-center space-x-3 ${
-                        currentLang === lang.code ? 'bg-pink-500/20 text-pink-400' : 'text-white'
+                        currentLang === lang.code ? 'bg-[#EF4822]/20 text-[#EF4822]' : 'text-gray-800'
                       }`}
                     >
                       <span className="text-lg">{lang.flag}</span>
@@ -360,7 +357,7 @@ function App() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-3 rounded-xl bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-white hover:from-pink-500/30 hover:to-violet-500/30 transition-all duration-300"
+                            className="md:hidden p-3 rounded-xl bg-gradient-to-r from-[#EF4822]/20 to-[#706F6F]/20 text-[#EF4822] hover:from-[#EF4822]/30 hover:to-[#706F6F]/30 transition-all duration-300 border border-[#EF4822]/30"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -368,7 +365,7 @@ function App() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-gray-900/95 backdrop-blur-lg border-t border-gray-700/50">
+          <div className="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200">
             <nav className="container mx-auto px-4 py-6 space-y-4">
               {[
                 { key: 'home', href: '#home' },
@@ -380,7 +377,7 @@ function App() {
                 <a
                   key={item.key}
                   href={item.href}
-                  className="block text-white font-semibold hover:text-pink-400 transition-colors duration-300 transform hover:translate-x-2"
+                  className="block text-gray-800 font-semibold hover:text-[#EF4822] transition-colors duration-300 transform hover:translate-x-2"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -389,7 +386,7 @@ function App() {
               ))}
               
               {/* Mobile Language Switcher */}
-              <div className="pt-4 border-t border-gray-700/50">
+              <div className="pt-4 border-t border-gray-200">
                 <div className="flex space-x-2">
                   {languages.map((lang) => (
                     <button
@@ -397,8 +394,8 @@ function App() {
                       onClick={() => switchLanguage(lang.code)}
                       className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 ${
                         currentLang === lang.code 
-                          ? 'bg-pink-500/20 text-pink-400' 
-                          : 'bg-gray-800/50 text-white hover:bg-gray-700/50'
+                          ? 'bg-[#EF4822]/20 text-[#EF4822]' 
+                          : 'bg-gray-100/80 text-gray-800 hover:bg-gray-200'
                       }`}
                     >
                       <span>{lang.flag}</span>
@@ -414,24 +411,24 @@ function App() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-        <div className="relative z-10 text-center text-white px-4 max-w-6xl mx-auto">
+        <div className="relative z-10 text-center text-gray-800 px-4 max-w-6xl mx-auto">
           <div className="animate-fade-in-up">
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-12 leading-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-7xl font-black mb-12 leading-tight">
               <span 
                 key={`line1-${currentPhrase}-${currentLang}`}
-                className="typewriter-line block bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent"
+                className="typewriter-line block bg-gradient-to-r from-[#EF4822] via-[#706F6F] to-[#161616] bg-clip-text text-transparent"
               >
                 {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][0]}
               </span>
               <span 
                 key={`line2-${currentPhrase}-${currentLang}`}
-                className="typewriter-line block text-white mt-4"
+                className="typewriter-line block text-gray-800 mt-4"
               >
                 {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][1]}
               </span>
               <span 
                 key={`line3-${currentPhrase}-${currentLang}`}
-                className="typewriter-line block bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent"
+                className="typewriter-line block bg-gradient-to-r from-[#706F6F] via-[#161616] to-[#EF4822] bg-clip-text text-transparent"
               >
                 {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][2]}
               </span>
@@ -439,47 +436,47 @@ function App() {
           </div>
           
           <div className="animate-fade-in-up animation-delay-300">
-            <p className="text-xl md:text-2xl mb-12 text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl mb-12 text-gray-600 max-w-3xl mx-auto leading-relaxed">
               {t('heroSubtitle')}
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animation-delay-600">
-            <button className="group relative bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+            <button className="group relative bg-gradient-to-r from-[#EF4822] to-[#706F6F] hover:from-[#d13d1e] hover:to-[#5a5959] text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
               <span className="relative z-10 flex items-center justify-center">
                 {t('viewProjects')}
                 <Play className="ml-3 group-hover:translate-x-1 transition-transform duration-300" size={24} />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-violet-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#d13d1e] to-[#5a5959] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
             
-            <button className="group relative border-2 border-cyan-400 text-cyan-400 hover:text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 overflow-hidden">
+            <button className="group relative border-2 border-[#EF4822] text-[#EF4822] hover:text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 overflow-hidden">
               <span className="relative z-10">{t('getConsultation')}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#EF4822] to-[#706F6F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
             </button>
           </div>
 
           <div className="mt-16 animate-bounce">
-            <ChevronDown className="w-8 h-8 mx-auto text-gray-400" />
+            <ChevronDown className="w-8 h-8 mx-auto text-[#EF4822]" />
           </div>
         </div>
 
         {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-pink-500/20 to-violet-500/20 rounded-full animate-float"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full animate-float animation-delay-1000"></div>
-        <div className="absolute bottom-40 left-20 w-24 h-24 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-full animate-float animation-delay-2000"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-[#EF4822]/20 to-[#706F6F]/20 rounded-full animate-float"></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-gradient-to-r from-[#EF4822]/20 to-[#706F6F]/20 rounded-full animate-float animation-delay-1000"></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 bg-gradient-to-r from-[#161616]/20 to-[#706F6F]/20 rounded-full animate-float animation-delay-2000"></div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative py-32 bg-gradient-to-b from-gray-900 to-gray-800">
+      <section id="services" className="relative py-32 bg-white">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-              <span className="bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+              <span className="bg-gradient-to-r from-[#EF4822] to-[#706F6F] bg-clip-text text-transparent">
                 {t('servicesTitle')}
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               {t('servicesSubtitle')}
             </p>
           </div>
@@ -490,48 +487,48 @@ function App() {
                 icon: Home,
                 titleKey: 'service1Title',
                 descKey: 'service1Desc',
-                gradient: 'from-pink-500 to-rose-500',
+                gradient: 'from-[#EF4822] to-[#d13d1e]',
                 image: 'https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               },
               {
                 icon: Palette,
                 titleKey: 'service2Title',
                 descKey: 'service2Desc',
-                gradient: 'from-violet-500 to-purple-500',
+                gradient: 'from-[#706F6F] to-[#5a5959]',
                 image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               },
               {
                 icon: Lightbulb,
                 titleKey: 'service3Title',
                 descKey: 'service3Desc',
-                gradient: 'from-cyan-500 to-blue-500',
+                gradient: 'from-[#161616] to-[#0f0f0f]',
                 image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               },
               {
                 icon: Eye,
                 titleKey: 'service4Title',
                 descKey: 'service4Desc',
-                gradient: 'from-emerald-500 to-teal-500',
+                gradient: 'from-[#EF4822] to-[#706F6F]',
                 image: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               },
               {
                 icon: Award,
                 titleKey: 'service5Title',
                 descKey: 'service5Desc',
-                gradient: 'from-orange-500 to-red-500',
+                gradient: 'from-[#706F6F] to-[#161616]',
                 image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               },
               {
                 icon: Users,
                 titleKey: 'service6Title',
                 descKey: 'service6Desc',
-                gradient: 'from-indigo-500 to-purple-500',
+                gradient: 'from-[#161616] to-[#EF4822]',
                 image: 'https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
               }
             ].map((service, index) => (
               <div 
                 key={index} 
-                className="group relative bg-gray-800/50 backdrop-blur-lg rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 hover:scale-105"
+                className="group relative bg-white border border-gray-200 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 hover:scale-105"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative h-64 overflow-hidden">
@@ -548,10 +545,10 @@ function App() {
                 </div>
                 
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-violet-400 group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-[#EF4822] transition-all duration-300">
                     {t(service.titleKey)}
                   </h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">{t(service.descKey)}</p>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{t(service.descKey)}</p>
                   <button className={`flex items-center text-white font-semibold bg-gradient-to-r ${service.gradient} px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 group-hover:scale-105`}>
                     {t('learnMore')}
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" size={18} />
@@ -564,16 +561,16 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <section className="relative py-32 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 overflow-hidden">
+      <section className="relative py-32 bg-gradient-to-r from-[#EF4822] via-[#706F6F] to-[#161616] overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { icon: Briefcase, number: '500+', labelKey: 'stat1', color: 'text-pink-200' },
-              { icon: Users, number: '1000+', labelKey: 'stat2', color: 'text-purple-200' },
-              { icon: Award, number: '25+', labelKey: 'stat3', color: 'text-indigo-200' },
-              { icon: Star, number: '5.0', labelKey: 'stat4', color: 'text-cyan-200' }
-            ].map((stat, index) => (
+                          {[
+                { icon: Briefcase, number: '500+', labelKey: 'stat1', color: 'text-[#FEFEFE]' },
+                { icon: Users, number: '1000+', labelKey: 'stat2', color: 'text-[#FEFEFE]' },
+                { icon: Award, number: '25+', labelKey: 'stat3', color: 'text-[#FEFEFE]' },
+                { icon: Star, number: '5.0', labelKey: 'stat4', color: 'text-[#FEFEFE]' }
+              ].map((stat, index) => (
               <div 
                 key={index} 
                 className="group transform hover:scale-110 transition-all duration-300"
@@ -583,7 +580,7 @@ function App() {
                   <stat.icon className={`w-16 h-16 mx-auto mb-6 ${stat.color} group-hover:scale-125 transition-transform duration-300`} />
                   <div className="absolute inset-0 bg-white/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
-                <div className="text-4xl md:text-6xl font-black mb-4 text-white group-hover:text-yellow-300 transition-colors duration-300">
+                <div className="text-4xl md:text-6xl font-black mb-4 text-white group-hover:text-[#EF4822] transition-colors duration-300">
                   {stat.number}
                 </div>
                 <div className="text-lg text-gray-200 font-semibold">{t(stat.labelKey)}</div>
@@ -594,15 +591,15 @@ function App() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="projects" className="relative py-32 bg-gradient-to-b from-gray-800 to-gray-900">
+      <section id="projects" className="relative py-32 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+              <span className="bg-gradient-to-r from-[#EF4822] to-[#706F6F] bg-clip-text text-transparent">
                 {t('portfolioTitle')}
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               {t('portfolioSubtitle')}
             </p>
           </div>
@@ -642,7 +639,7 @@ function App() {
             ].map((project, index) => (
               <div 
                 key={index} 
-                className="group relative overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
+                className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 bg-white"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative h-80 overflow-hidden">
@@ -654,11 +651,11 @@ function App() {
                 </div>
                 
                 <div className="absolute bottom-0 left-0 right-0 p-8 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="text-sm font-semibold text-cyan-400 mb-2">{t(project.categoryKey)}</div>
+                  <div className="text-sm font-semibold text-[#EF4822] mb-2">{t(project.categoryKey)}</div>
                   <h3 className="text-2xl font-bold mb-4">{t(project.titleKey)}</h3>
-                  <button className="bg-gradient-to-r from-pink-500 to-violet-500 text-white px-6 py-3 rounded-xl font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105">
-                    {t('viewProject')}
-                  </button>
+                                      <button className="bg-gradient-to-r from-[#EF4822] to-[#706F6F] text-white px-6 py-3 rounded-xl font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105">
+                      {t('viewProject')}
+                    </button>
                 </div>
               </div>
             ))}
@@ -667,15 +664,15 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contacts" className="relative py-32 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900">
+      <section id="contacts" className="relative py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-              <span className="bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-6">
+              <span className="text-[#EF4822]">
                 {t('contactTitle')}
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               {t('contactSubtitle')}
             </p>
           </div>
@@ -684,20 +681,20 @@ function App() {
             <div className="space-y-8">
               <h3 className="text-3xl font-bold text-white mb-8">{t('contactInfo')}</h3>
               {[
-                { icon: Phone, titleKey: 'phone', info: '+374 XX XXX XXX', gradient: 'from-pink-500 to-rose-500' },
-                { icon: Mail, titleKey: 'email', info: 'info@reform.am', gradient: 'from-violet-500 to-purple-500' },
-                { icon: MapPin, titleKey: 'address', infoKey: 'addressValue', gradient: 'from-cyan-500 to-blue-500' }
+                { icon: Phone, titleKey: 'phone', info: '+374 XX XXX XXX', gradient: 'from-[#EF4822] to-[#d13d1e]' },
+                { icon: Mail, titleKey: 'email', info: 'info@reform.am', gradient: 'from-[#706F6F] to-[#5a5959]' },
+                { icon: MapPin, titleKey: 'address', infoKey: 'addressValue', gradient: 'from-[#161616] to-[#0f0f0f]' }
               ].map((contact, index) => (
                 <div 
                   key={index} 
-                  className="group flex items-center space-x-6 p-6 bg-gray-800/50 backdrop-blur-lg rounded-2xl hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-105"
+                  className="group flex items-center space-x-6 p-6 bg-gray-50 border border-gray-200 rounded-2xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
                 >
                   <div className={`w-16 h-16 bg-gradient-to-r ${contact.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110`}>
                     <contact.icon className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <div className="text-lg font-bold text-white mb-1">{t(contact.titleKey)}</div>
-                    <div className="text-gray-300 group-hover:text-white transition-colors duration-300">
+                    <div className="text-lg font-bold text-gray-800 mb-1">{t(contact.titleKey)}</div>
+                    <div className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                       {contact.infoKey ? t(contact.infoKey) : contact.info}
                     </div>
                   </div>
@@ -705,31 +702,31 @@ function App() {
               ))}
             </div>
 
-            <div className="bg-gray-800/50 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
-              <h3 className="text-3xl font-bold text-white mb-8">{t('writeUs')}</h3>
+            <div className="bg-gray-50 border border-gray-200 rounded-3xl p-8 shadow-lg">
+              <h3 className="text-3xl font-bold text-gray-800 mb-8">{t('writeUs')}</h3>
               <form className="space-y-6">
                 <div className="group">
                   <input
                     type="text"
                     placeholder={t('yourName')}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-pink-500 focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
+                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#EF4822] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
                   />
                 </div>
                 <div className="group">
                   <input
                     type="email"
                     placeholder={t('yourEmail')}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-violet-500 focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
+                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#706F6F] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 group-hover:border-gray-500"
                   />
                 </div>
                 <div className="group">
                   <textarea
                     placeholder={t('projectDescription')}
                     rows={5}
-                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-cyan-500 focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 resize-none group-hover:border-gray-500"
+                    className="w-full px-6 py-4 bg-gray-700/50 border border-gray-600 rounded-2xl focus:outline-none focus:border-[#161616] focus:bg-gray-700 transition-all duration-300 text-white placeholder-gray-400 resize-none group-hover:border-gray-500"
                   ></textarea>
                 </div>
-                <button className="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 text-white py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+                <button className="w-full bg-gradient-to-r from-[#EF4822] via-[#706F6F] to-[#161616] hover:from-[#d13d1e] hover:via-[#5a5959] hover:to-[#0f0f0f] text-white py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
                   {t('sendMessage')}
                 </button>
               </form>
@@ -739,23 +736,23 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="relative bg-black text-white py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/20 via-purple-900/20 to-indigo-900/20"></div>
+      <footer className="relative bg-gray-800 text-white py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#EF4822]/20 via-[#706F6F]/20 to-[#161616]/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-4 mb-8 md:mb-0 group">
-              <img 
-                src="/public/5233619750318371183.jpg" 
-                alt="REFORM Logo" 
-                className="w-16 h-16 rounded-2xl object-cover shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110"
-              />
-              <div>
-                <div className="text-2xl font-black bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
-                  REFORM
-                </div>
-                <div className="text-gray-400 font-medium">
-                  {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
-                </div>
+              <div className="flex flex-col items-center">
+                <a href="#home" className="group cursor-pointer">
+                  <img 
+                    src="/reformLogo.png" 
+                    alt="REFORM Logo" 
+                    className="w-20 h-auto transition-all duration-300 group-hover:scale-110"
+                    style={{ objectFit: 'contain' }}
+                  />
+                  <div className="text-gray-200 font-medium mt-2 group-hover:text-[#EF4822] transition-colors duration-300">
+                    {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
+                  </div>
+                </a>
               </div>
             </div>
             <div className="text-center md:text-right">
