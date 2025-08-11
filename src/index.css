@@ -72,16 +72,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #161616;
+  background: #1f2937;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #EF4822, #706F6F);
+  background: linear-gradient(to bottom, #ec4899, #8b5cf6);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #EF4822, #FEFEFE);
+  background: linear-gradient(to bottom, #db2777, #7c3aed);
 }
 
 /* Smooth scrolling */
@@ -123,7 +123,7 @@ html {
     border-color: transparent;
   }
   50% {
-    border-color: #EF4822;
+    border-color: #ec4899;
   }
 }
 
@@ -132,7 +132,7 @@ html {
     border-color: transparent;
   }
   25%, 75% {
-    border-color: #EF4822;
+    border-color: #ec4899;
   }
 }
 
@@ -150,7 +150,7 @@ html {
 
 .typewriter {
   overflow: hidden;
-  border-right: 3px solid #EF4822;
+  border-right: 3px solid #ec4899;
   white-space: nowrap;
   margin: 0 auto;
   animation: 
@@ -172,23 +172,23 @@ html {
 
 .typewriter-line:nth-child(1) {
   animation-delay: 0s;
-  border-color: #EF4822;
+  border-color: #ec4899;
 }
 
 .typewriter-line:nth-child(2) {
   animation-delay: 1.3s;
-  border-color: #FEFEFE;
+  border-color: #8b5cf6;
 }
 
 .typewriter-line:nth-child(3) {
   animation-delay: 2.6s;
-  border-color: #EF4822;
+  border-color: #06b6d4;
 }
 
 
 /* Custom gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #EF4822, #FEFEFE, #706F6F);
+  background: linear-gradient(135deg, #ec4899, #8b5cf6, #06b6d4);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

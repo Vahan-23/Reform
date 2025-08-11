@@ -134,17 +134,16 @@ reform-website/
 ## 🌈 Цветовая палитра
 
 ```css
-/* Основные цвета бренда */
-Dark Background: #161616    /* Основной темный фон */
-Light Text: #FEFEFE        /* Белый текст и элементы */
-Brand Orange: #EF4822      /* Акцентный оранжевый */
-Medium Gray: #706F6F       /* Вторичный серый */
+/* Основные градиенты */
+Pink to Violet: from-pink-500 to-violet-600
+Cyan to Blue: from-cyan-500 to-blue-500
+Purple to Indigo: from-purple-900 via-blue-900 to-indigo-900
 
-/* Применение цветов */
-Background: #161616
-Text Primary: #FEFEFE
-Accent/CTA: #EF4822
-Text Secondary: #706F6F
+/* Акцентные цвета */
+Pink: #ec4899
+Violet: #8b5cf6
+Cyan: #06b6d4
+Blue: #3b82f6
 ```
 
 ## 📱 Адаптивность
