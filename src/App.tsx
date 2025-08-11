@@ -270,9 +270,591 @@ function App() {
     <div className="min-h-screen bg-gray-900 overflow-x-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900"></div>
+        <div className="absolute inset-0" style={{ backgroundColor: '#161616' }}></div>
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-pink-500/20 to-violet-500/20 rounded-full blur-3xl animate-pulse"
+          className="absolute w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{
+            background: `radial-gradient(circle, rgba(239, 72, 34, 0.1) 0%, rgba(239, 72, 34, 0.05) 50%, transparent 100%)`,
+            left: mousePosition.x - 192,
+            top: mousePosition.y - 192,
+            transition: 'all 0.3s ease-out'
+          }}
+        ></div>
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 rounded-full blur-2xl animate-bounce" style={{ background: 'radial-gradient(circle, rgba(112, 111, 111, 0.1) 0%, transparent 70%)' }}></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full blur-2xl animate-pulse" style={{ background: 'radial-gradient(circle, rgba(239, 72, 34, 0.08) 0%, transparent 70%)' }}></div>
+      </div>
+
+      {/* Header */}
+      <header className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled ? 'backdrop-blur-lg shadow-2xl py-2' : 'bg-transparent py-4'
+      }`} style={{ backgroundColor: scrolled ? 'rgba(22, 22, 22, 0.95)' : 'transparent' }}>
+        <div className="container mx-auto px-4 flex items-center justify-between relative z-10">
+          <div className="flex items-center space-x-4 group">
+            <div className="relative">
+              <img 
+                src="/public/5233619750318371183.jpg" 
+                alt="REFORM Logo" 
+                className="w-14 h-14 rounded-2xl object-cover shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'rgba(239, 72, 34, 0.2)' }}></div>
+            </div>
+            <div>
+              <h1 className="text-2xl font-black" style={{ color: '#EF4822' }}>
+                REFORM
+              </h1>
+              <p className="text-sm font-medium" style={{ color: '#706F6F' }}>
+                {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {[
+              { key: 'home', href: '#home' },
+              { key: 'services', href: '#services' },
+              { key: 'projects', href: '#projects' },
+              { key: 'about', href: '#about' },
+              { key: 'contacts', href: '#contacts' }
+            ].map((item, index) => (
+              <a
+                key={item.key}
+                href={item.href}
+                className="relative font-semibold transition-all duration-300 group"
+                style={{ 
+                  color: '#FEFEFE',
+                  animationDelay: `${index * 0.1}s` 
+                }}
+                onMouseEnter={(e) => e.target.style.color = '#EF4822'}
+                onMouseLeave={(e) => e.target.style.color = '#FEFEFE'}
+              >
+                {t(item.key)}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#EF4822' }}></span>
+              </a>
+            ))}
+            
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                className="flex items-center space-x-2 font-semibold transition-all duration-300 px-4 py-2 rounded-xl backdrop-blur-lg"
+                style={{ 
+                  color: '#FEFEFE',
+                  backgroundColor: 'rgba(22, 22, 22, 0.5)' 
+                }}
+                onMouseEnter={(e) => e.target.style.color = '#EF4822'}
+                onMouseLeave={(e) => e.target.style.color = '#FEFEFE'}
+              >
+                <Globe size={18} />
+                <span>{languages.find(lang => lang.code === currentLang)?.flag}</span>
+                <ChevronDown size={16} className={`transform transition-transform duration-300 ${isLangMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isLangMenuOpen && (
+                <div className="absolute top-full right-0 mt-2 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden" style={{ backgroundColor: 'rgba(22, 22, 22, 0.95)', border: '1px solid rgba(112, 111, 111, 0.5)' }}>
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => switchLanguage(lang.code)}
+                      className={`w-full px-4 py-3 text-left transition-colors duration-300 flex items-center space-x-3 ${
+                        currentLang === lang.code ? 'text-white' : ''
+                      }`}
+                      style={{
+                        backgroundColor: currentLang === lang.code ? 'rgba(239, 72, 34, 0.2)' : 'transparent',
+                        color: currentLang === lang.code ? '#EF4822' : '#FEFEFE'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (currentLang !== lang.code) {
+                          e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.5)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (currentLang !== lang.code) {
+                          e.target.style.backgroundColor = 'transparent';
+                        }
+                      }}
+                    >
+                      <span className="text-lg">{lang.flag}</span>
+                      <span className="font-medium">{lang.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="md:hidden p-3 rounded-xl transition-all duration-300"
+            style={{ 
+              backgroundColor: 'rgba(239, 72, 34, 0.2)',
+              color: '#FEFEFE'
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(239, 72, 34, 0.3)'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = 'rgba(239, 72, 34, 0.2)'}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden backdrop-blur-lg" style={{ backgroundColor: 'rgba(22, 22, 22, 0.95)', borderTop: '1px solid rgba(112, 111, 111, 0.5)' }}>
+            <nav className="container mx-auto px-4 py-6 space-y-4">
+              {[
+                { key: 'home', href: '#home' },
+                { key: 'services', href: '#services' },
+                { key: 'projects', href: '#projects' },
+                { key: 'about', href: '#about' },
+                { key: 'contacts', href: '#contacts' }
+              ].map((item, index) => (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  className="block font-semibold transition-colors duration-300 transform hover:translate-x-2"
+                  style={{ 
+                    color: '#FEFEFE',
+                    animationDelay: `${index * 0.1}s` 
+                  }}
+                  onClick={() => setIsMenuOpen(false)}
+                  onMouseEnter={(e) => e.target.style.color = '#EF4822'}
+                  onMouseLeave={(e) => e.target.style.color = '#FEFEFE'}
+                >
+                  {t(item.key)}
+                </a>
+              ))}
+              
+              {/* Mobile Language Switcher */}
+              <div className="pt-4" style={{ borderTop: '1px solid rgba(112, 111, 111, 0.5)' }}>
+                <div className="flex space-x-2">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => switchLanguage(lang.code)}
+                      className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300`}
+                      style={{
+                        backgroundColor: currentLang === lang.code 
+                          ? 'rgba(239, 72, 34, 0.2)' 
+                          : 'rgba(22, 22, 22, 0.5)',
+                        color: currentLang === lang.code ? '#EF4822' : '#FEFEFE'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (currentLang !== lang.code) {
+                          e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.5)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (currentLang !== lang.code) {
+                          e.target.style.backgroundColor = 'rgba(22, 22, 22, 0.5)';
+                        }
+                      }}
+                    >
+                      <span>{lang.flag}</span>
+                      <span className="text-sm font-medium">{lang.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section */}
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+          <div className="animate-fade-in-up">
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-12 leading-tight">
+              <span 
+                key={`line1-${currentPhrase}-${currentLang}`}
+                className="typewriter-line block"
+                style={{ color: '#EF4822' }}
+              >
+                {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][0]}
+              </span>
+              <span 
+                key={`line2-${currentPhrase}-${currentLang}`}
+                className="typewriter-line block mt-4"
+                style={{ color: '#FEFEFE' }}
+              >
+                {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][1]}
+              </span>
+              <span 
+                key={`line3-${currentPhrase}-${currentLang}`}
+                className="typewriter-line block"
+                style={{ color: '#EF4822' }}
+              >
+                {brandPhrases[currentLang as keyof typeof brandPhrases][currentPhrase][2]}
+              </span>
+            </h1>
+          </div>
+          
+          <div className="animate-fade-in-up animation-delay-300">
+            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{ color: '#706F6F' }}>
+              {t('heroSubtitle')}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animation-delay-600">
+            <button className="group relative text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl" style={{ backgroundColor: '#EF4822' }}>
+              <span className="relative z-10 flex items-center justify-center">
+                {t('viewProjects')}
+                <Play className="ml-3 group-hover:translate-x-1 transition-transform duration-300" size={24} />
+              </span>
+            </button>
+            
+            <button className="group relative border-2 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 overflow-hidden" style={{ borderColor: '#EF4822', color: '#EF4822' }}>
+              <span className="relative z-10">{t('getConsultation')}</span>
+              <div className="absolute inset-0 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" style={{ backgroundColor: '#EF4822' }}></div>
+            </button>
+          </div>
+
+          <div className="mt-16 animate-bounce">
+            <ChevronDown className="w-8 h-8 mx-auto" style={{ color: '#706F6F' }} />
+          </div>
+        </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 rounded-full animate-float" style={{ background: 'rgba(239, 72, 34, 0.2)' }}></div>
+        <div className="absolute top-40 right-20 w-16 h-16 rounded-full animate-float animation-delay-1000" style={{ background: 'rgba(112, 111, 111, 0.2)' }}></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 rounded-full animate-float animation-delay-2000" style={{ background: 'rgba(239, 72, 34, 0.15)' }}></div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="relative py-32" style={{ background: 'linear-gradient(to bottom, #161616, #1a1a1a)' }}>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-black mb-6">
+              <span style={{ color: '#EF4822' }}>
+                {t('servicesTitle')}
+              </span>
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#706F6F' }}>
+              {t('servicesSubtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Home,
+                titleKey: 'service1Title',
+                descKey: 'service1Desc',
+                image: 'https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              },
+              {
+                icon: Palette,
+                titleKey: 'service2Title',
+                descKey: 'service2Desc',
+                image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              },
+              {
+                icon: Lightbulb,
+                titleKey: 'service3Title',
+                descKey: 'service3Desc',
+                image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              },
+              {
+                icon: Eye,
+                titleKey: 'service4Title',
+                descKey: 'service4Desc',
+                image: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              },
+              {
+                icon: Award,
+                titleKey: 'service5Title',
+                descKey: 'service5Desc',
+                image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              },
+              {
+                icon: Users,
+                titleKey: 'service6Title',
+                descKey: 'service6Desc',
+                image: 'https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop'
+              }
+            ].map((service, index) => (
+              <div 
+                key={index} 
+                className="group relative backdrop-blur-lg rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 hover:scale-105"
+                style={{ 
+                  backgroundColor: 'rgba(22, 22, 22, 0.5)',
+                  animationDelay: `${index * 0.1}s` 
+                }}
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-700"
+                    style={{ backgroundImage: `url("${service.image}")` }}
+                  ></div>
+                  <div className="absolute inset-0 group-hover:opacity-80 transition-opacity duration-300" style={{ background: `linear-gradient(to top, rgba(239, 72, 34, 0.6), rgba(239, 72, 34, 0.3))` }}></div>
+                  <div className="absolute top-6 left-6">
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#EF4822' }}>
+                      <service.icon className="w-8 h-8" style={{ color: '#FEFEFE' }} />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-opacity-100 transition-all duration-300" style={{ color: '#FEFEFE' }}>
+                    {t(service.titleKey)}
+                  </h3>
+                  <p className="mb-6 leading-relaxed" style={{ color: '#706F6F' }}>{t(service.descKey)}</p>
+                  <button className="flex items-center text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-300 group-hover:scale-105" style={{ backgroundColor: '#EF4822' }}>
+                    {t('learnMore')}
+                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" size={18} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="relative py-32 overflow-hidden" style={{ backgroundColor: '#EF4822' }}>
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { icon: Briefcase, number: '500+', labelKey: 'stat1' },
+              { icon: Users, number: '1000+', labelKey: 'stat2' },
+              { icon: Award, number: '25+', labelKey: 'stat3' },
+              { icon: Star, number: '5.0', labelKey: 'stat4' }
+            ].map((stat, index) => (
+              <div 
+                key={index} 
+                className="group transform hover:scale-110 transition-all duration-300"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className="relative">
+                  <stat.icon className="w-16 h-16 mx-auto mb-6 group-hover:scale-125 transition-transform duration-300" style={{ color: '#FEFEFE' }} />
+                  <div className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(254, 254, 254, 0.1)' }}></div>
+                </div>
+                <div className="text-4xl md:text-6xl font-black mb-4 transition-colors duration-300" style={{ color: '#FEFEFE' }}>
+                  {stat.number}
+                </div>
+                <div className="text-lg font-semibold" style={{ color: 'rgba(254, 254, 254, 0.9)' }}>{t(stat.labelKey)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section */}
+      <section id="projects" className="relative py-32" style={{ background: 'linear-gradient(to bottom, #1a1a1a, #161616)' }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-black mb-6">
+              <span style={{ color: '#EF4822' }}>
+                {t('portfolioTitle')}
+              </span>
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#706F6F' }}>
+              {t('portfolioSubtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project1Title',
+                categoryKey: 'project1Cat'
+              },
+              {
+                image: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project2Title',
+                categoryKey: 'project2Cat'
+              },
+              {
+                image: 'https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project3Title',
+                categoryKey: 'project3Cat'
+              },
+              {
+                image: 'https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project4Title',
+                categoryKey: 'project4Cat'
+              },
+              {
+                image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project5Title',
+                categoryKey: 'project5Cat'
+              },
+              {
+                image: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=600&h=500&fit=crop',
+                titleKey: 'project6Title',
+                categoryKey: 'project6Cat'
+              }
+            ].map((project, index) => (
+              <div 
+                key={index} 
+                className="group relative overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative h-80 overflow-hidden">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transform group-hover:scale-125 transition-transform duration-700"
+                    style={{ backgroundImage: `url("${project.image}")` }}
+                  ></div>
+                  <div className="absolute inset-0 group-hover:from-black/60 transition-all duration-300" style={{ background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent)' }}></div>
+                </div>
+                
+                <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300" style={{ color: '#FEFEFE' }}>
+                  <div className="text-sm font-semibold mb-2" style={{ color: '#EF4822' }}>{t(project.categoryKey)}</div>
+                  <h3 className="text-2xl font-bold mb-4">{t(project.titleKey)}</h3>
+                  <button className="text-white px-6 py-3 rounded-xl font-semibold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:scale-105" style={{ backgroundColor: '#EF4822' }}>
+                    {t('viewProject')}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contacts" className="relative py-32" style={{ background: 'linear-gradient(135deg, #161616, #1a1a1a)' }}>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-black mb-6">
+              <span style={{ color: '#EF4822' }}>
+                {t('contactTitle')}
+              </span>
+            </h2>
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: '#706F6F' }}>
+              {t('contactSubtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-16">
+            <div className="space-y-8">
+              <h3 className="text-3xl font-bold mb-8" style={{ color: '#FEFEFE' }}>{t('contactInfo')}</h3>
+              {[
+                { icon: Phone, titleKey: 'phone', info: '+374 XX XXX XXX' },
+                { icon: Mail, titleKey: 'email', info: 'info@reform.am' },
+                { icon: MapPin, titleKey: 'address', infoKey: 'addressValue' }
+              ].map((contact, index) => (
+                <div 
+                  key={index} 
+                  className="group flex items-center space-x-6 p-6 backdrop-blur-lg rounded-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ backgroundColor: 'rgba(22, 22, 22, 0.5)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(112, 111, 111, 0.5)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(22, 22, 22, 0.5)'}
+                >
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#EF4822' }}>
+                    <contact.icon className="w-8 h-8" style={{ color: '#FEFEFE' }} />
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold mb-1" style={{ color: '#FEFEFE' }}>{t(contact.titleKey)}</div>
+                    <div className="group-hover:text-white transition-colors duration-300" style={{ color: '#706F6F' }}>
+                      {contact.infoKey ? t(contact.infoKey) : contact.info}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="backdrop-blur-lg rounded-3xl p-8 shadow-2xl" style={{ backgroundColor: 'rgba(22, 22, 22, 0.5)' }}>
+              <h3 className="text-3xl font-bold mb-8" style={{ color: '#FEFEFE' }}>{t('writeUs')}</h3>
+              <form className="space-y-6">
+                <div className="group">
+                  <input
+                    type="text"
+                    placeholder={t('yourName')}
+                    className="w-full px-6 py-4 border rounded-2xl focus:outline-none transition-all duration-300 placeholder-gray-400"
+                    style={{ 
+                      backgroundColor: 'rgba(112, 111, 111, 0.5)',
+                      borderColor: '#706F6F',
+                      color: '#FEFEFE'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EF4822';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.7)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#706F6F';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.5)';
+                    }}
+                  />
+                </div>
+                <div className="group">
+                  <input
+                    type="email"
+                    placeholder={t('yourEmail')}
+                    className="w-full px-6 py-4 border rounded-2xl focus:outline-none transition-all duration-300 placeholder-gray-400"
+                    style={{ 
+                      backgroundColor: 'rgba(112, 111, 111, 0.5)',
+                      borderColor: '#706F6F',
+                      color: '#FEFEFE'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EF4822';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.7)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#706F6F';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.5)';
+                    }}
+                  />
+                </div>
+                <div className="group">
+                  <textarea
+                    placeholder={t('projectDescription')}
+                    rows={5}
+                    className="w-full px-6 py-4 border rounded-2xl focus:outline-none transition-all duration-300 placeholder-gray-400 resize-none"
+                    style={{ 
+                      backgroundColor: 'rgba(112, 111, 111, 0.5)',
+                      borderColor: '#706F6F',
+                      color: '#FEFEFE'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#EF4822';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.7)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#706F6F';
+                      e.target.style.backgroundColor = 'rgba(112, 111, 111, 0.5)';
+                    }}
+                  ></textarea>
+                </div>
+                <button className="w-full text-white py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl" style={{ backgroundColor: '#EF4822' }}>
+                  {t('sendMessage')}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative py-16 overflow-hidden" style={{ backgroundColor: '#000000' }}>
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(239, 72, 34, 0.1), rgba(112, 111, 111, 0.1))' }}></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center space-x-4 mb-8 md:mb-0 group">
+              <img 
+                src="/public/5233619750318371183.jpg" 
+                alt="REFORM Logo" 
+                className="w-16 h-16 rounded-2xl object-cover shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110"
+              />
+              <div>
+                <div className="text-2xl font-black" style={{ color: '#EF4822' }}>
+                  REFORM
+                </div>
+                <div className="font-medium" style={{ color: '#706F6F' }}>
+                  {currentLang === 'hy' ? 'Ճարտարապետություն & Դիզայն' : 'Architecture & Design'}
+                </div>
+              </div>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="mb-2" style={{ color: '#706F6F' }}>&copy; 2024 REFORM. {t('footerText')}</p>
+              <p className="text-sm" style={{ color: '#706F6F' }}>{t('footerSubtext')}</p>
+            </div>
+          </div>
+        </div>
+      </footer>
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
